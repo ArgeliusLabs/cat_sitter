@@ -158,7 +158,15 @@ def main():
 
     # Show final results
     print('\n[*] Cracking completed. Found hashes:')
-    run_hashcat(args.hash_format, args.hash_file, None, attack_mode='0')
+    cmd = ['hashcat.exe', '--show', f'-m{args.hash_format}', args.hash_file]
+    try:
+        result = subprocess.run(cmd, capture_output=True, text=True)
+        if result.stdout:
+            print(result.stdout)
+        else:
+            print("No hashes were cracked")
+    except subprocess.CalledProcessError as e:
+        print(f'[!] Error showing results: {e}')
 
     elapsed_time = time.time() - start_time
     print(f'\n[*] Total execution time: {datetime.timedelta(seconds=int(elapsed_time))}')
