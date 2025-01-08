@@ -51,7 +51,7 @@ def run_hashcat(hash_format, hash_file, wordlist, rule=None, attack_mode='0'):
         return None
     
     # Basic hashcat command with optimization (-O) and workload (-w3)
-    cmd = ['hashcat.exe', '--force', '-O', '-w3', f'-a{attack_mode}', f'-m{hash_format}', hash_file]
+    cmd = ['hashcat.exe', '-O', '-w3', f'-a{attack_mode}', f'-m{hash_format}', hash_file]
     
     if wordlist:
         if attack_mode == '1' and ' ' in wordlist:
